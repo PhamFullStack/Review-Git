@@ -46,15 +46,15 @@ $git add --add	#add all files in current directory to the local repository
 #### II.3. Git commit
 
 ```git
-$git commit -m "message" #commit files from stage state to commit state
-$git commit -a - m "message" #commit files directly without stage state (prefer)
+$git commit -m "message" 		#commit files from stage state to commit state
+$git commit -a - m "message" 	#commit files directly without stage state (prefer)
 ```
 
 #### II.4. Git branch
 
 ```git
-$git branch new-branch	#create a new branch
-$git checkout previous-branch #switch the current workspace to previous branch
+$git branch new-branch			#create a new branch
+$git checkout previous-branch 	#switch the current workspace to previous branch
 ```
 
 #### II.5. Git branch merge
@@ -67,9 +67,23 @@ $git merge current-branch 		#merge current-branch to the master
 $git branch -d current-branch 	#delete current-branch
 ```
 
-
-
 ### III. Github
 
 #### III.1. Github getting started
+
+##### III.1.a. Add a remote repository to your local Git repo
+
+```git
+$git remote add origin URL
+```
+
+##### III.1.b. Set default-branch as the default remote branch
+
+```git
+$git push --set-upstream origin default-branch
+```
+
+#### III.2. Git pull
+
+##### III.2.a. Git fetch
 
