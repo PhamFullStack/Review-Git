@@ -13,6 +13,7 @@ $git --version
 ```git
 $git config --global user.name "username"
 $git config --global user.email "email"
+$git config --global user.password "password"
 ```
 
 #### I.3. Git status
@@ -50,6 +51,21 @@ $git commit -a - m "message" #commit files directly without stage state (prefer)
 ```
 
 #### II.4. Git branch
+
+```git
+$git branch new-branch	#create a new branch
+$git checkout previous-branch #switch the current workspace to previous branch
+```
+
+#### II.5. Git branch merge
+
+Ex: merge source code from the current branch (current-branch) to the master
+
+```git
+$git checkout master			#switch to the master branch
+$git merge current-branch 		#merge current-branch to the master
+$git branch -d current-branch 	#delete current-branch
+```
 
 
 
