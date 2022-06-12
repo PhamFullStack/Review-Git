@@ -45,13 +45,41 @@ $git log branch	#view log of a branch
 
 #### I.3. Git advanced
 
-##### I.3.1. Initialize git on local machine
+##### I.3.1. Git remote
+
+> Git remote is used to refer to a remote repository or your central repository. It means you have a local repository and you want to add references to a remote repository for further tracking.
+
+```git
+$mkdir git-testing
+$cd git-testing
+$git init
+$git remote add origin https://github.com/PhamFullStack/Git-testing.git
+$touch HelloWorld.txt
+$git add .
+$git commit -m "Add HelloWorld.txt"
+$git push --set-upstream origin master
+```
+
+##### I.3.2. Git clone
+
+> Git clone is used to copy or clone a different repository.
+
+```git
+$git clone https://github.com/PhamFullStack/Review-Git-Testing.git
+$cd Review-Git-Testing
+$touch HelloWorld.txt
+$git add .
+$git commit -m "Add HelloWorld.txt"
+$git push
+```
+
+##### I.3.3. Initialize git on local machine
 
 ```git
 $git init
 ```
 
-##### I.3.2. Add a specific file to local repository and commit it
+##### I.3.4. Add a specific file to local repository and commit it
 
 ![A representation of a series of commits in Git](https://opensource.com/sites/default/files/uploads/gitcommands1_local-environment.png)
 
@@ -72,7 +100,81 @@ $git commit -a - m "message" #commit files directly without **git add**
 $git add --add
 ```
 
-##### I.3.3. Create a new git branch
+##### I.3.5. Git pull 
+
+I.3.5.1. Git Fetch is used to get all the change history of a tracked branch/repo
+
+```git
+$ git fetch
+remote: Enumerating objects: 5, done.
+remote: Counting objects: 100% (5/5), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), 647 bytes | 58.00 KiB/s, done.
+From https://github.com/PhamFullStack/Review-Git-Testing
+   1190c7b..f0c21c0  main       -> origin/main
+```
+
+You can check with the following commands
+
+```git
+$git status
+On branch main
+Your branch is behind 'origin/main' by 1 commit, and can be fast-forwarded.
+  (use "git pull" to update your local branch)
+
+nothing to commit, working tree clean
+$git log origin/main
+commit f0c21c0ca18219f493479d06468d86253ba6562f (origin/main)
+Author: PhamFullStack <107211966+PhamFullStack@users.noreply.github.com>
+Date:   Sat Jun 11 21:05:54 2022 -0700
+
+    Update HelloWorld.txt
+
+commit 1190c7bcb4fb2fc112ac2a390020c2ab904190d3 (HEAD -> main)
+Author: PhamFullStack <michaelphamn@outlook.com>
+Date:   Sat Jun 11 21:01:45 2022 -0700
+
+    Add HelloWorld.txt
+$git diff f0c21c0ca18219f493479d06468d86253ba6562f
+diff --git a/HelloWorld.txt b/HelloWorld.txt
+index e6f4275..e69de29 100644
+--- a/HelloWorld.txt
++++ b/HelloWorld.txt
+@@ -1 +0,0 @@
+-Hello World
+```
+
+I.3.5.2. Git Merge is used to combine the current branch with a  specified branch
+
+We  merge the origin/main with id f0c21c0ca18219f493479d06468d86253ba6562f
+
+```git
+$git merge f0c21c0ca18219f493479d06468d86253ba6562f
+```
+
+I.3.5.3. Git Pull is a combination of fetch and merge
+
+```git 
+$git pull
+$git pull origin
+```
+
+##### I.3.6. Git push
+
+```git
+#git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        Test.TXT
+
+nothing added to commit but untracked files present (use "git add" to track)
+#git push origin
+```
+
+##### I.3.7. Create a new git branch
 
 <img src="https://www.nobledesktop.com/image/gitresources/git-branches-merge.png" alt="Git Branches" style="zoom:50%;"/>
 
@@ -80,13 +182,13 @@ $git add --add
 $git branch new-branch
 ```
 
-##### I.3.4. Switch from the current branch to main branch
+##### I.3.8. Switch from the current branch to main branch
 
 ```git
 $git checkout main
 ```
 
-##### I.3.5 Merge from the current branch to the main
+##### I.3.9. Merge from the current branch to the main
 
 ```git
 $git checkout main				#switch to the main branch
@@ -94,7 +196,7 @@ $git merge current-branch 		#merge current-branch to the main
 $git branch -d current-branch 	#delete current-branch
 ```
 
-##### I.3.6. Compare differences
+##### I.3.10. Compare differences
 
 ```git
 $git log --oneline	#view committing versions
@@ -102,9 +204,9 @@ $git diff commit-v1 commit-v2 #view differences between commit-v1 and commit-v2
 $git diff branch1 branch2 #view differences between branch1 and branch2
 ```
 
-##### I.3.7. Revert to previous states
+##### I.3.11. Reset to previous states
 
-- Create git versions 
+Let's say you had commits:
 
 ```git
 $touch alpha.html
@@ -120,53 +222,49 @@ $touch delta.html
 $git add . && git commit -m "4th git commit: 4 files"
 ```
 
-- View git versions
+View git versions
 
 ```git
 $git reflog
-(HEAD -> master)
-0c59891 HEAD@{1}: commit: 4th git commit: 4 files
-4945db2 HEAD@{2}: commit: 3rd git commit: 3 files
-defc4eb HEAD@{3}: commit: 2nd git commit: 2 files
-2938ee3 HEAD@{4}: commit: 1st git commit: 1 file
+399775a (HEAD -> main, origin/main) HEAD@{0}: commit: 4th git commit: 4 files
+694ff64 HEAD@{1}: commit: 3rd git commit: 3 files
+d62a8cd HEAD@{2}: commit: 2nd git commit: 2 files
+1ee08d3 HEAD@{3}: commit (initial): 1st git commit: 1 file
 ```
 
 OR
 
 ```git
 $git log --oneline
-f569e54 (HEAD -> main, origin/new-branch, new-branch) Merge to master
-efbe4e1 Commit data to the new-branch
-357d12b Test
-0bcde83 Update Readme
-8cb0875 Initial commit
+399775a (HEAD -> main, origin/main) 4th git commit: 4 files
+694ff64 3rd git commit: 3 files
+d62a8cd 2nd git commit: 2 files
+1ee08d3 1st git commit: 1 file
 ```
 
-Revert to latest version
+Reset to d62a8cd version but still be at state of origin/main
 
 ```git
-$git revert HEAD
+$git reset --soft d62a8cd
 ```
 
-Or revert to earlier commits
+Or Reset to d62a8cd version but still be at state of d62a8cd
 
 ```git
-$git revert HEAD~2	#going back 2 steps
+$git reset --hard d62a8cd
 ```
-
-
 
 ### II. Github
 
-#### II.2. Github Personal Access Token
+#### II.1. Github Personal Access Token
 
-##### II.2.1. Generating personal access token
+##### II.1.1. Generating personal access token
 
 https://stackoverflow.com/questions/68775869/support-for-password-authentication-was-removed-please-use-a-personal-access-to
 
 > From your GitHub account, go to **Settings** => **Developer Settings** => **Personal Access Token** => **Generate New Token** (Give your password) => **Fillup the form** => click **Generate token** => **Copy the generated Token**, it will be something like `ghp_sFhFsSHhTzMDreGRLjmks4Tzuzgthdvfsrta`
 
-##### II.2.2. Enter personal access token to Windows OS
+##### II.1.2. Enter personal access token to Windows OS
 
 Go to **Credential Manager** from **Control Panel** => **Windows Credentials** => find `git:https://github.com` => **Edit** => On Password replace with with your **GitHub Personal Access Token** => You are Done
 
@@ -193,7 +291,7 @@ $git add . && git commit -m "1st git commit: 1 file"
 $git push
 ```
 
-##### II.2.3. Enter personal access token to Ubuntu
+##### II.1.3. Enter personal access token to Ubuntu
 
 For Linux, you need to configure the local GIT client with a username and email address,
 
@@ -231,13 +329,13 @@ $ git config --global --unset credential.helper
 $ git config --system --unset credential.helper
 ```
 
-##### II.2.4. Enter personal access token to MacOS
+##### II.1.4. Enter personal access token to MacOS
 
 Click on the Spotlight icon (magnifying glass) on the right side of the menu bar. Type **Keychain access** then press the Enter key to launch the app => In Keychain Access, search for `github.com` => Find the **internet password** entry for `github.com` => Edit or delete the entry accordingly => You are done
 
-#### II.3. Github Security SSH
+#### II.2. Github Security SSH
 
-##### II.3.1. Generating an SSH key pair
+##### II.2.1. Generating an SSH key pair
 
 ```git
 $ssh-keygen -t rsa -b 4096 -C "michaelphamn@outlook.com"
@@ -264,7 +362,7 @@ The key's randomart image is:
 +----[SHA256]-----+
 ```
 
-##### II.3.2. Add SSH key pair to the SSH-Agent
+##### II.2.2. Add SSH key pair to the SSH-Agent
 
 ```git
 $eval `ssh-agent`
@@ -273,7 +371,7 @@ Enter passphrase for /home/michaelphamn/.ssh/id_rsa: [Enter your keyphrase]
 Identity added: /home/michaelphamn/.ssh/id_rsa (/home/michaelphamn/.ssh/id_rsa)
 ```
 
-##### II.3.3. Copy the SSH public key and save to the Github setting
+##### II.2.3. Copy the SSH public key and save to the Github setting
 
 ```git
 $cat /home/michaelphamn/.ssh/id_rsa.pub
@@ -282,7 +380,7 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDCY81TwfQ4PRdpN8eonwmuF0uqMZuE0kFtWlZbhO4
 
 Copy the id_rsa.pub and save to the Github setting
 
-##### II.3.4. Test SSH Connection to Github
+##### II.2.4. Test SSH Connection to Github
 
 ```git
 $ssh -T git@github.com
@@ -293,24 +391,17 @@ Warning: Permanently added 'github.com,192.30.255.112' (ECDSA) to the list of kn
 Hi PhamFullStack! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
-##### II.3.5. Setup working directory
+##### II.2.5. Setup working directory
 
 ```git
 $git clone git@github.com:PhamFullStack/git-testing.git
 $cd git-testing
 ```
 
-##### II.3.6. Push files to the working directory
+##### II.2.6. Push files to the working directory
 
 ```git
 $touch alpha.html
 $git add . && git commit -m "1st git commit: 1 file"
 $git push
 ```
-
-#### III.2. Git pull
-
-##### III.2.a. Git fetch
-
-#### II.2. Github security
-
